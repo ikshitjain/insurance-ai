@@ -1,0 +1,91 @@
+[
+    {
+        "id": "20260430011819660839",
+        "timestamp": "2026-04-30T01:18:19.660952",
+        "role": "Company",
+        "data": {
+            "claim_amount": 5000,
+            "vehicle_age": 5,
+            "accident_type": "Rear-end",
+            "police_report": 0,
+            "witness_present": 0,
+            "previous_claims": 0,
+            "premium": 1200,
+            "insured_value": 25000
+        },
+        "prediction": {
+            "result": 0,
+            "confidence": 0.17875
+        }
+    },
+    {
+        "id": "20260430011846534043",
+        "timestamp": "2026-04-30T01:18:46.534082",
+        "role": "Customer",
+        "data": {
+            "claim_amount": 5000,
+            "vehicle_age": 5,
+            "accident_type": "Rear-end",
+            "police_report": 0,
+            "witness_present": 0,
+            "previous_claims": 0,
+            "premium": 1200,
+            "insured_value": 25000
+        },
+        "prediction": null
+    },
+    {
+        "id": "20260430013122053604",
+        "timestamp": "2026-04-30T01:31:22.053641",
+        "role": "Company",
+        "data": {
+            "claim_amount": 5000,
+            "vehicle_age": 5,
+            "accident_type": "Rear-end",
+            "police_report": 0,
+            "witness_present": 0,
+            "previous_claims": 0,
+            "premium": 1200,
+            "insured_value": 25000
+        },
+        "prediction": {
+            "result": 0,
+            "confidence": 0.17875
+        }
+    },
+    {
+        "id": "20260501104400042328",
+        "timestamp": "2026-05-01T10:44:00.042369",
+        "role": "Customer",
+        "data": {
+            "claim_amount": 5000,
+            "vehicle_age": 5,
+            "accident_type": "Rear-end",
+            "police_report": 0,
+            "witness_present": 0,
+            "previous_claims": 0,
+            "premium": 1200,
+            "insured_value": 25000
+        },
+        "prediction": null
+    },
+    {
+        "id": "20260501104422033257",
+        "timestamp": "2026-05-01T10:44:22.033295",
+        "role": "Company",
+        "data": {
+            "claim_amount": 5000,
+            "vehicle_age": 5,
+            "accident_type": "Rear-end",
+            "police_report": 0,
+            "witness_present": 0,
+            "previous_claims": 0,
+            "premium": 1200,
+            "insured_value": 25000
+        },
+        "prediction": {
+            "result": 0,
+            "confidence": 0.17875
+        }
+    }
+]
