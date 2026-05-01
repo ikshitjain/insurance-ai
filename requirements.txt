@@ -1,0 +1,11 @@
+streamlit
+joblib
+langchain==1.2.15
+langchain_community
+langchain_classic
+langchain_text_splitters
+faiss-cpu
+pypdf
+sentence-transformers
+scikit-learn==1.8.0
+numpy
