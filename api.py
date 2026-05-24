@@ -7,6 +7,10 @@ import numpy as np
 import json
 from datetime import datetime
 from typing import Dict, Any, Optional
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
@@ -49,7 +53,7 @@ def load_resources():
             if api_key:
                 llm = ChatGroq(
                     groq_api_key=api_key,
-                    model_name="llama3-8b-8192",
+                    model_name="llama-3.1-8b-instant",
                     temperature=0
                 )
                 resources["qa_chain"] = RetrievalQA.from_chain_type(llm=llm, retriever=resources["vector_db"].as_retriever())

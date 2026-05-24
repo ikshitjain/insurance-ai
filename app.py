@@ -5,6 +5,10 @@ import pandas as pd
 import numpy as np
 import json
 from datetime import datetime
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
@@ -214,15 +218,23 @@ def load_vector_db():
 def load_qa_chain(_db):
     if _db is None: return None
     try:
-        # Get API Key from Streamlit Secrets or Environment
-        api_key = st.secrets.get("GROQ_API_KEY") or os.getenv("GROQ_API_KEY")
+        # Try getting key from environment first (for local .env)
+        api_key = os.getenv("GROQ_API_KEY")
+        
+        # If not in environment, try Streamlit secrets (for Cloud)
         if not api_key:
-            st.warning("Please set GROQ_API_KEY in secrets to enable support chat.")
+            try:
+                api_key = st.secrets["GROQ_API_KEY"]
+            except:
+                api_key = None
+
+        if not api_key:
+            st.warning("GROQ_API_KEY not found. Please set it in .env or Streamlit Secrets.")
             return None
             
         llm = ChatGroq(
             groq_api_key=api_key,
-            model_name="llama3-8b-8192",
+            model_name="llama-3.1-8b-instant",
             temperature=0
         )
         return RetrievalQA.from_chain_type(llm=llm, retriever=_db.as_retriever())
