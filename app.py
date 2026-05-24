@@ -43,118 +43,79 @@ st.markdown("""
         font-family: 'Plus Jakarta Sans', sans-serif;
     }
     
-    .main {
-        background: #f8fafc;
-    }
-    
-    /* Normalized Card Buttons */
+    /* Responsive Card Buttons */
     div.stButton > button {
         height: 80px;
         width: 100%;
         border-radius: 12px;
-        border: none;
+        border: 1px solid rgba(128, 128, 128, 0.2);
         background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.3s ease;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         font-size: 18px;
         font-weight: 700;
-        color: white;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        color: white !important;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
     
     div.stButton > button:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
-        color: #f8fafc;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        border-color: #6366f1;
+        color: white !important;
     }
 
-    /* Tab styling - Normalized */
+    /* Tab styling */
     .stTabs [data-baseweb="tab-list"] {
         gap: 10px;
-        background-color: #f1f5f9;
+        background-color: rgba(128, 128, 128, 0.05);
         padding: 8px;
         border-radius: 12px;
     }
 
     .stTabs [data-baseweb="tab"] {
-        background-color: transparent;
         border-radius: 8px;
         padding: 8px 16px;
-        color: #64748b;
         font-weight: 600;
     }
 
-    .stTabs [aria-selected="true"] {
-        background-color: white !important;
-        color: #4f46e5 !important;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
-    }
-    
     /* Metrics */
     div.stMetric {
-        background: #e0f2fe;
+        background: rgba(99, 102, 241, 0.1);
         padding: 20px;
         border-radius: 12px;
-        border: 1px solid #bae6fd;
-        box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
-    }
-
-    div.stMetric [data-testid="stMetricValue"] {
-        color: #0369a1;
+        border: 1px solid rgba(99, 102, 241, 0.2);
     }
 
     /* Forms and Containers */
     [data-testid="stForm"], .stForm {
-        background: #ffffff;
-        padding: 1.25rem;
+        background: rgba(128, 128, 128, 0.03);
+        padding: 1.5rem;
         border-radius: 16px;
-        border: 1px solid #e2e8f0;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(128, 128, 128, 0.1);
     }
 
-    div.stVerticalBlock > div > div.stBox {
-        background: #f8fafc;
-        border-radius: 12px;
-        border: 1px solid #e2e8f0;
-        padding: 1rem;
-    }
-
-    /* Custom Card Variants */
+    /* Custom Card Variants for Dark/Light */
     .customer-card div.stButton > button {
         background: linear-gradient(135deg, #10b981 0%, #059669 100%);
     }
-    .customer-card div.stButton > button:hover {
-        background: linear-gradient(135deg, #059669 0%, #047857 100%);
-    }
-
     .company-card div.stButton > button {
         background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
     }
-    .company-card div.stButton > button:hover {
-        background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
-    }
 
     .log-container {
-        background: white;
         padding: 1rem;
         border-radius: 12px;
-        border: 1px solid #e2e8f0;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        border: 1px solid rgba(128, 128, 128, 0.2);
+        background: rgba(128, 128, 128, 0.02);
     }
     
     .header-text {
-        color: #0f172a;
         font-weight: 800;
         letter-spacing: -0.5px;
-    }
-
-    .subtitle-text {
-        color: #64748b;
-        font-size: 1.1rem;
     }
     </style>
     """, unsafe_allow_html=True)
