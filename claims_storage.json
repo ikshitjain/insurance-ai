@@ -87,5 +87,53 @@
             "result": 0,
             "confidence": 0.17875
         }
+    },
+    {
+        "id": "20260502195018393232",
+        "timestamp": "2026-05-02T19:50:18.393275",
+        "role": "Customer",
+        "data": {
+            "claim_amount": 5000,
+            "vehicle_age": 5,
+            "accident_type": "Rear-end",
+            "police_report": 0,
+            "witness_present": 0,
+            "previous_claims": 0,
+            "premium": 1200,
+            "insured_value": 25000
+        },
+        "prediction": null
+    },
+    {
+        "id": "20260502195125610044",
+        "timestamp": "2026-05-02T19:51:25.610080",
+        "role": "Customer",
+        "data": {
+            "claim_amount": 5000,
+            "vehicle_age": 5,
+            "accident_type": "Rear-end",
+            "police_report": 0,
+            "witness_present": 0,
+            "previous_claims": 0,
+            "premium": 1200,
+            "insured_value": 25000
+        },
+        "prediction": null
+    },
+    {
+        "id": "20260502233526061765",
+        "timestamp": "2026-05-02T23:35:26.061801",
+        "role": "Customer",
+        "data": {
+            "claim_amount": 450000,
+            "vehicle_age": 12,
+            "accident_type": "Front-end",
+            "police_report": 0,
+            "witness_present": 0,
+            "previous_claims": 3,
+            "premium": 15000,
+            "insured_value": 400000
+        },
+        "prediction": null
     }
 ]

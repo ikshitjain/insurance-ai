@@ -346,8 +346,8 @@ class FraudModelQA:
         'claim_amount': (0, 10000000),
         'vehicle_age': (0, 30),
         'previous_claims': (0, 50),
-        'premium': (0, 100000),
-        'insured_value': (0, 20000000),
+        'premium': (0, 200000),
+        'insured_value': (0, 50000000),
     }
 
     @staticmethod

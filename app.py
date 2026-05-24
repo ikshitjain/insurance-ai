@@ -8,7 +8,7 @@ from datetime import datetime
 
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
-from langchain_community.llms import Ollama
+from langchain_groq import ChatGroq
 from langchain_classic.chains import RetrievalQA
 
 from qa_config import (
@@ -214,9 +214,21 @@ def load_vector_db():
 def load_qa_chain(_db):
     if _db is None: return None
     try:
-        llm = Ollama(model="phi3")
+        # Get API Key from Streamlit Secrets or Environment
+        api_key = st.secrets.get("GROQ_API_KEY") or os.getenv("GROQ_API_KEY")
+        if not api_key:
+            st.warning("Please set GROQ_API_KEY in secrets to enable support chat.")
+            return None
+            
+        llm = ChatGroq(
+            groq_api_key=api_key,
+            model_name="llama3-8b-8192",
+            temperature=0
+        )
         return RetrievalQA.from_chain_type(llm=llm, retriever=_db.as_retriever())
-    except: return None
+    except Exception as e:
+        st.error(f"Error loading Groq: {e}")
+        return None
 
 def predict_fraud(model_data, input_data):
     model = model_data['model']
@@ -285,15 +297,15 @@ else:
             with st.form("claim_form"):
                 col1, col2 = st.columns(2)
                 with col1:
-                    claim_amount = st.number_input("Claim Amount ($)", 0, 10000000, 5000)
-                    vehicle_age = st.number_input("Vehicle Age", 0, 30, 5)
-                    accident_type = st.selectbox("Accident Type", ["Rear-end", "Side-swipe", "Front-end", "Parked Car"])
-                    police_report = st.selectbox("Police Report Filed", ["No", "Yes"])
+                    claim_amount = st.number_input("Claim Amount (₹)", 0, 10000000, 450000)
+                    vehicle_age = st.number_input("Vehicle Age", 0, 30, 12)
+                    accident_type = st.selectbox("Accident Type", ["Rear-end", "Side-swipe", "Front-end", "Parked Car"], index=2)
+                    police_report = st.selectbox("Police Report Filed", ["No", "Yes"], index=0)
                 with col2:
-                    witness_present = st.selectbox("Witness Present", ["No", "Yes"])
-                    previous_claims = st.number_input("Previous Claims", 0, 50, 0)
-                    premium = st.number_input("Annual Premium ($)", 0, 100000, 1200)
-                    insured_value = st.number_input("Insured Value ($)", 0, 20000000, 25000)
+                    witness_present = st.selectbox("Witness Present", ["No", "Yes"], index=0)
+                    previous_claims = st.number_input("Previous Claims", 0, 50, 3)
+                    premium = st.number_input("Annual Premium (₹)", 0, 1000000, 15000)
+                    insured_value = st.number_input("Insured Value (₹)", 0, 20000000, 400000)
                 
                 submitted = st.form_submit_button("Submit Claim")
                 if submitted:
@@ -319,8 +331,8 @@ else:
                 with col1:
                     c_sex = st.selectbox("Sex", ["Male", "Female"])
                     c_type = st.number_input("Insurance Type", 1, 10, 1)
-                    c_val = st.number_input("Vehicle Value", 0, 10000000, 25000)
-                    c_prem = st.number_input("Premium", 0, 100000, 1500)
+                    c_val = st.number_input("Vehicle Value", 0, 10000000, 500000)
+                    c_prem = st.number_input("Premium", 0, 100000, 15000)
                 with col2:
                     c_year = st.number_input("Year", 1990, 2025, 2020)
                     c_seats = st.number_input("Seats", 1, 50, 5)
@@ -331,7 +343,7 @@ else:
                     sex_bit = 1 if c_sex == "Male" else 0
                     vector = [[sex_bit, 1, 1, 2024, c_type, c_val, c_prem, 12345, c_year, c_seats, 500, 1, c_ccm, c_make, 1]]
                     prediction = reg_model.predict(vector)[0]
-                    st.metric("Estimated Amount", f"${prediction:,.2f}")
+                    st.metric("Estimated Amount", f"₹{prediction:,.2f}")
             else: st.error("Model unavailable.")
 
         with tab3:
@@ -351,14 +363,14 @@ else:
         with col1:
             st.subheader("Risk Analysis")
             with st.container():
-                c_amount = st.number_input("Amount", 0, 10000000, 5000, key="ca1")
-                v_age = st.number_input("Age", 0, 30, 5, key="ca2")
-                acc_type = st.selectbox("Category", ["Rear-end", "Side-swipe", "Front-end", "Parked Car"], key="ca3")
-                pol_rep = st.selectbox("Police Report", ["No", "Yes"], key="ca4")
-                wit_pres = st.selectbox("Witness", ["No", "Yes"], key="ca5")
-                prev_claims = st.number_input("History", 0, 50, 0, key="ca6")
-                prem = st.number_input("Premium", 0, 100000, 1200, key="ca7")
-                ins_val = st.number_input("Value", 0, 20000000, 25000, key="ca8")
+                c_amount = st.number_input("Amount", 0, 10000000, 450000, key="ca1")
+                v_age = st.number_input("Age", 0, 30, 12, key="ca2")
+                acc_type = st.selectbox("Category", ["Rear-end", "Side-swipe", "Front-end", "Parked Car"], index=2, key="ca3")
+                pol_rep = st.selectbox("Police Report", ["No", "Yes"], index=0, key="ca4")
+                wit_pres = st.selectbox("Witness", ["No", "Yes"], index=0, key="ca5")
+                prev_claims = st.number_input("History", 0, 50, 3, key="ca6")
+                prem = st.number_input("Premium", 0, 1000000, 15000, key="ca7")
+                ins_val = st.number_input("Value", 0, 20000000, 400000, key="ca8")
                 
                 if st.button("Analyze Risk", type="primary"):
                     input_features = {
@@ -384,7 +396,7 @@ else:
                 with open(CLAIMS_FILE, "r") as f:
                     claims = json.load(f)
                     df = pd.DataFrame([
-                        {"Ref": c["id"][:8], "Role": c["role"], "Amount": f"${c['data']['claim_amount']:,}"} 
+                        {"Ref": c["id"][:8], "Role": c["role"], "Amount": f"₹{c['data']['claim_amount']:,}"} 
                         for c in claims[::-1]
                     ])
                     st.table(df.head(10))

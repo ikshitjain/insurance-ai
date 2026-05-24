@@ -9,3 +9,6 @@ pypdf
 sentence-transformers
 scikit-learn==1.8.0
 numpy
+fastapi
+uvicorn
+langchain-groq
